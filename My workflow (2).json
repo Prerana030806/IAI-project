@@ -1,0 +1,493 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        -96,
+        -80
+      ],
+      "id": "0e295996-3081-41a4-a07c-e3707159c649",
+      "name": "Telegram Trigger",
+      "webhookId": "609d84f4-f015-4d34-aa84-73a1a08b6deb",
+      "credentials": {
+        "telegramApi": {
+          "id": "0c0lQPmUdkCi30qu",
+          "name": "Telegram account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "b2b6bca4-6001-4a75-9c28-283c8eba3067",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "/start",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": "=/start",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        112,
+        -80
+      ],
+      "id": "2f002d35-41e7-4329-9f16-e411fae95f02",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "🎯 Great! Let's start your mock interview!  Please choose your interview type:  1️⃣ Technical Interview 2️⃣ HR Interview  Type TECHNICAL or HR to continue.",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        336,
+        -176
+      ],
+      "id": "e248935a-7af9-45b8-840f-09e388512c24",
+      "name": "Send a text message1",
+      "webhookId": "feedd332-26f2-437d-a52b-1ac9c935c0f2",
+      "credentials": {
+        "telegramApi": {
+          "id": "0c0lQPmUdkCi30qu",
+          "name": "Telegram account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "e6d0c0f3-9ecd-47a3-86d9-90500690ff00",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "TECHNICAL",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        336,
+        16
+      ],
+      "id": "1c3cc7f5-5910-4ef9-8fed-171483d98cf9",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.message.chat.id }}",
+        "text": "🎯 Excellent! Let's begin your Technical Mock Interview.  **Question 1:** What is the main difference between a list and a tuple in Python?  Please type your answer in one word. I'll review it and give you feedback.",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        592,
+        -176
+      ],
+      "id": "9120c086-cc05-4ed1-a7f7-430cb6da77e8",
+      "name": "Send a text message2",
+      "webhookId": "a45c147c-0980-40d1-aaa3-567c30d50057",
+      "credentials": {
+        "telegramApi": {
+          "id": "0c0lQPmUdkCi30qu",
+          "name": "Telegram account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "825b9a6f-0ddd-41ee-8b05-a327b9d1ef6c",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "HR",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        608,
+        176
+      ],
+      "id": "57077b3d-a341-4791-b7f6-d05fc911d2a1",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.message.chat.id }}",
+        "text": "👔 Welcome to your HR Mock Interview!  Question 1: Tell me about yourself.  Please type your answer, and we'll continue your interview!",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        816,
+        160
+      ],
+      "id": "18415ff5-428f-4878-9e3a-60e1b891ac05",
+      "name": "Send a text message3",
+      "webhookId": "05c0c287-7ab6-4971-8d0b-cd5fd83b3a5a",
+      "credentials": {
+        "telegramApi": {
+          "id": "0c0lQPmUdkCi30qu",
+          "name": "Telegram account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "24a9af9b-342d-4b05-99b6-74af63ee605a",
+              "leftValue": "={{ $('Telegram Trigger').first().json.message.text.toLowerCase() }}",
+              "rightValue": "mutablity",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        832,
+        -176
+      ],
+      "id": "5270bc60-e9e7-409e-bd92-529b13d04673",
+      "name": "If3"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.message.chat.id }}",
+        "text": "✅ Good attempt! Your answer mentions mutability.  Correct answer: A list is mutable (can be changed), while a tuple is immutable (cannot be changed after creation).  🎉 Thank you for completing the technical mock interview!",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1040,
+        -192
+      ],
+      "id": "3b489cbd-977b-43aa-8866-67ed94765f42",
+      "name": "Send a text message4",
+      "webhookId": "7dcd2d46-4204-4468-a2cf-4d5ee8735e5c",
+      "credentials": {
+        "telegramApi": {
+          "id": "0c0lQPmUdkCi30qu",
+          "name": "Telegram account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "❌ Not quite! Here's the correct answer:  A list is mutable, meaning its contents can be changed. A tuple is immutable, meaning its contents cannot be changed after creation.  🎉 Thank you for completing the technical mock interview!",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1040,
+        0
+      ],
+      "id": "9750f546-2a30-44c4-a919-318e4178a212",
+      "name": "Send a text message5",
+      "webhookId": "5a94b897-ccab-4ec3-bde0-7a7dfa918390",
+      "credentials": {
+        "telegramApi": {
+          "id": "0c0lQPmUdkCi30qu",
+          "name": "Telegram account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "48345b30-d489-4805-a6a5-4963c7a03344",
+              "leftValue": "={{ $('Telegram Trigger').first().json.message.text }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        1008,
+        256
+      ],
+      "id": "accd61e1-cfb3-4bdf-909a-fcb552d75392",
+      "name": "If4"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.message.chat.id }}",
+        "text": "✅ Thank you for sharing your answer!  Feedback: Good effort! In an HR interview, try to explain your strengths, relevant skills, and career goals clearly. Include a real example when possible.  🎉 Thank you for completing your HR mock interview!",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1232,
+        160
+      ],
+      "id": "02c4d333-b13b-4f77-908d-0e15e8aa2ca2",
+      "name": "Send a text message6",
+      "webhookId": "c7ed8979-2d6a-4c0c-9492-ea041d517be1",
+      "credentials": {
+        "telegramApi": {
+          "id": "0c0lQPmUdkCi30qu",
+          "name": "Telegram account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.result.chat.id }}",
+        "text": "⚠️ Your answer seems empty.  Please tell me about yourself, including your education, skills, strengths, and career goals.",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1248,
+        320
+      ],
+      "id": "70e3556e-fd6b-49c2-bdf0-9fcfe474400c",
+      "name": "Send a text message7",
+      "webhookId": "582394e3-60b9-4f02-ad72-75c5f3c1dbc1",
+      "credentials": {
+        "telegramApi": {
+          "id": "0c0lQPmUdkCi30qu",
+          "name": "Telegram account 3"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send a text message1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message1": {
+      "main": [
+        []
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Send a text message2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Send a text message3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message2": {
+      "main": [
+        [
+          {
+            "node": "If3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If3": {
+      "main": [
+        [
+          {
+            "node": "Send a text message4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message3": {
+      "main": [
+        [
+          {
+            "node": "If4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If4": {
+      "main": [
+        [
+          {
+            "node": "Send a text message6",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "saveExecutionProgress": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "versionId": "5a09be3f-042d-4870-92ed-ce13855187ff",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "cca3dd0413001e291a4b42ffd877491d74aa1ef9b01bdb7a7238792b468f4af6"
+  },
+  "nodeGroups": [],
+  "id": "p7PxgbOId3Hkg92u",
+  "tags": []
+}
